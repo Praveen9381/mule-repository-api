@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="385d595e-44a0-4ceb-9415-ab3f665dd198" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="main-implFlow" doc:id="0e15cb2d-0fd3-45b3-a60e-da6ee5de2172" >
+		<http:listener doc:name="Listener" doc:id="4c4121a6-f978-4e09-bf97-6e468105ae17" config-ref="HTTP_Listener_config" path="/api/gittest"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7a2049b9-4f11-4452-a5d8-6b3e4c966363" message="flow demo started"/>
+		<ee:transform doc:name="Transform Message" doc:id="79d3ba3a-70e2-4de1-8662-9a5b8e4b2445" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "we are configuring anypoint studio to git"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
